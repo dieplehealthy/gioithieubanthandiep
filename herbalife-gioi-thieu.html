@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Câu chuyện thay đổi của Lê Thị Diệp - Herbalife</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .slideshow {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .slide-content {
+            max-width: 1000px;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        /* Slide 1 - Cover */
+        .slide-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .slide-1 h1 {
+            font-size: 4em;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .slide-1 p {
+            font-size: 1.8em;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        /* Slide 2 - Intro */
+        .slide-2 {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .slide-2 .slide-content {
+            color: #333;
+        }
+
+        .slide-2 h2 {
+            font-size: 3em;
+            color: #00b09b;
+            margin-bottom: 40px;
+        }
+
+        .slide-2 p {
+            font-size: 1.5em;
+            line-height: 1.8;
+            text-align: left;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Slide 3 - Problems */
+        .slide-3 {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .slide-3 .slide-content {
+            color: #333;
+        }
+
+        .slide-3 h2 {
+            font-size: 3em;
+            color: #d63031;
+            margin-bottom: 50px;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .problem-card h3 {
+            font-size: 2em;
+            color: #d63031;
+            margin-bottom: 20px;
+        }
+
+        .problem-card p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        /* Slide 4 - Solution */
+        .slide-4 {
+            background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+        }
+
+        .slide-4 h2 {
+            font-size: 3em;
+            margin-bottom: 50px;
+        }
+
+        .slide-4 p {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .slide-4 ul {
+            list-style: none;
+            text-align: left;
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 40px 60px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            margin-left: 2cm;
+        }
+
+        .slide-4 li {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-left: 60px;
+            position: relative;
+        }
+
+        .slide-4 li::before {
+            content: '✅';
+            position: absolute;
+            left: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Slide 5 - Results */
+        .slide-5 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .slide-5 .slide-content {
+            color: #333;
+        }
+
+        .slide-5 h2 {
+            font-size: 3em;
+            color: #00b894;
+            margin-bottom: 50px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: scale(1.05);
+        }
+
+        .result-card h3 {
+            font-size: 2.2em;
+            color: #00b894;
+            margin-bottom: 20px;
+        }
+
+        .result-card p {
+            font-size: 1.3em;
+            color: #666;
+        }
+
+        /* Slide 6 - Thanks */
+        .slide-6 {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+        }
+
+        .slide-6 .slide-content {
+            color: #333;
+        }
+
+        .slide-6 h2 {
+            font-size: 3em;
+            color: #e17055;
+            margin-bottom: 50px;
+        }
+
+        .slide-6 ul {
+            list-style: none;
+            text-align: left;
+            display: inline-block;
+            background: white;
+            padding: 50px 80px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 150px;
+        }
+
+        .slide-6 li {
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            padding-left: 50px;
+            position: relative;
+        }
+
+        .slide-6 li::before {
+            content: '💚';
+            position: absolute;
+            left: 0;
+            font-size: 1.5em;
+        }
+
+        /* Slide 7 - Quote with Image */
+        .slide-7 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .slide-7 .slide-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            max-width: 1200px;
+        }
+
+        .quote-text {
+            text-align: left;
+        }
+
+        .quote-text p {
+            font-size: 1.5em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quote-text .highlight {
+            font-size: 1.8em;
+            font-weight: bold;
+            display: block;
+            margin-top: 30px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        .image-container {
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Slide 8 - Disclaimer */
+        .slide-8 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .slide-8 h2 {
+            font-size: 3em;
+            margin-bottom: 40px;
+        }
+
+        .slide-8 p {
+            font-size: 1.8em;
+            line-height: 1.8;
+            background: rgba(255,255,255,0.1);
+            padding: 50px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.3);
+            border: 2px solid white;
+            color: #8B7355;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-weight: bold;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.1);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            z-index: 100;
+            background: rgba(255,255,255,0.3);
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.2em;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .slide-7 .slide-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .quote-text {
+                text-align: center;
+            }
+
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+            }
+
+            .slide-1 h1 {
+                font-size: 2.5em;
+            }
+
+            .slide-1 p {
+                font-size: 1.2em;
+            }
+
+            .slide-2 h2, .slide-3 h2, .slide-4 h2, .slide-5 h2, .slide-6 h2, .slide-8 h2 {
+                font-size: 2em;
+            }
+
+            .slide-2 p, .slide-4 p, .slide-8 p {
+                font-size: 1.1em;
+                padding: 20px;
+            }
+
+            .problem-card, .result-card {
+                padding: 25px;
+            }
+
+            .problem-card h3, .result-card h3 {
+                font-size: 1.5em;
+            }
+
+            .slide-4 li, .slide-6 li {
+                font-size: 1.2em;
+            }
+
+            .quote-text p {
+                font-size: 1.1em;
+            }
+
+            .quote-text .highlight {
+                font-size: 1.3em;
+            }
+
+            .nav-buttons {
+                bottom: 20px;
+            }
+
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+
+            .slide-indicator {
+                top: 20px;
+                right: 20px;
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow">
+        <!-- Slide 1: Cover -->
+        <div class="slide slide-1 active">
+            <div class="slide-content">
+                <h1>🌱 Câu chuyện thay đổi của tôi</h1>
+                <p>Hành trình từ mệt mỏi đến tràn đầy năng lượng</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Intro -->
+        <div class="slide slide-2">
+            <div class="slide-content">
+                <h2>Xin chào, tôi là Lê Thị Diệp</h2>
+                <p>
+                    <strong>39 tuổi</strong>, đang sinh sống và làm việc tại <strong>Đà Nẵng</strong>. 
+                    Hiện tại tôi đang quản lý một cơ sở mầm non trên địa bàn thành phố. 
+                    <br><br>
+                    Đây là câu chuyện về hành trình thay đổi sức khỏe của tôi với <strong>Herbalife</strong>.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Problems -->
+        <div class="slide slide-3">
+            <div class="slide-content">
+                <h2>⚠️ Những vấn đề tôi gặp phải</h2>
+                <p style="font-size: 1.3em; margin-bottom: 20px;">Do ăn uống không khoa học, thói quen và lối sống thiếu lành mạnh</p>
+                <div class="problems-grid">
+                    <div class="problem-card">
+                        <h3>Thừa cân</h3>
+                        <p>Cân nặng tăng không kiểm soát, ảnh hưởng đến sức khỏe và tự tin</p>
+                    </div>
+                    <div class="problem-card">
+                        <h3>Đau đầu</h3>
+                        <p>Tình trạng đau đầu thường xuyên, ảnh hưởng đến công việc hàng ngày</p>
+                    </div>
+                    <div class="problem-card">
+                        <h3>Mất ngủ</h3>
+                        <p>Khó ngủ, ngủ không sâu giấc, luôn cảm thấy mệt mỏi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Solution -->
+        <div class="slide slide-4">
+            <div class="slide-content">
+                <h2>🌟 Cơ duyên đến với Herbalife</h2>
+                <p>
+                    Cơ duyên đến với tôi rất tình cờ, thông qua một người bạn chia sẻ về giải pháp dinh dưỡng Herbalife.
+                    <br>
+                    Tôi đã bắt đầu thay đổi từ những điều cơ bản nhất:
+                </p>
+                <ul>
+                    <li>Ăn đúng</li>
+                    <li>Uống đủ</li>
+                    <li>Kết hợp vận động hợp lý</li>
+                    <li>Duy trì thói quen tốt cùng dinh dưỡng Herbalife</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Results -->
+        <div class="slide slide-5">
+            <div class="slide-content">
+                <h2>🎉 Kết quả đến thời điểm hiện tại</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>Giảm 8kg cân nặng</h3>
+                        <p>Cơ thể nhẹ nhàng hơn, tự tin hơn với ngoại hình</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Cải thiện mất ngủ & đau đầu</h3>
+                        <p>Ngủ ngon hơn, tinh thần thoải mái, không còn đau đầu thường xuyên</p>
+                    </div>
+                </div>
+                <p style="margin-top: 40px; font-size: 1.5em;">
+                    Từ kết quả của chính mình, tôi đã bắt đầu lan tỏa và chia sẻ giải pháp này đến những người xung quanh.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Thanks -->
+        <div class="slide slide-6">
+            <div class="slide-content">
+                <h2>💖 Lời cảm ơn</h2>
+                <ul>
+                    <li>Người đã chia sẻ là bảo trợ Vi Võ</li>
+                    <li>Cảm ơn tuyến trên TAB Biện Hiền</li>
+                    <li>Cảm ơn nhà vận hành nhóm dinh dưỡng đã đồng hành và hướng dẫn</li>
+                    <li>Công ty Herbalife - tập đoàn dinh dưỡng toàn cầu</li>
+                    <li>Nhà sáng lập – Ngài Mark Hughes</li>
+                    <li>Cảm ơn tất cả mọi người đã lắng nghe câu chuyện của tôi.</li>
+                </ul>
+                <p style="margin-top: 0px; font-size: 1.5em; text-align: center;">
+                    <strong>.</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Quote with Image -->
+        <div class="slide slide-7">
+            <div class="slide-content">
+                <div class="quote-text">
+                    <p>Không cần ép bản thân nhịn ăn cực đoan…</p>
+                    <p>Chỉ cần học cách ăn lành mạnh, ngủ tốt hơn và yêu cơ thể mình đúng cách 🌱</p>
+                    <p>Từ một người luôn mệt mỏi, tự ti với ngoại hình</p>
+                    <p>đến hôm nay nhẹ người hơn, da dẻ cũng tươi hơn, tinh thần tích cực hơn 💖</p>
+                    <span class="highlight">
+                        Giảm cân không phải để thành ai khác<br>
+                        mà là phiên bản khỏe mạnh hơn của chính mình
+                    </span>
+                </div>
+                <div class="image-container">
+                    <img src="diep2hinh.jpg" alt="Lê Thị Diệp - Hành trình thay đổi">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Disclaimer -->
+        <div class="slide slide-8">
+            <div class="slide-content">
+                <h2>⚠️ Lưu ý quan trọng</h2>
+                <p>
+                    Kết quả của mỗi người là khác nhau,<br>
+                    tùy thuộc vào cơ địa và sự tuân thủ của từng cá nhân.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-indicator">
+        <span id="current-slide">1</span> / <span id="total-slides">8</span>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prev-btn" onclick="prevSlide()">← Trước</button>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()">Tiếp →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentSlideSpan = document.getElementById('current-slide');
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            currentSlideSpan.textContent = currentSlide + 1;
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Touch swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        }
+
+        // Initialize
+        prevBtn.disabled = true;
+    </script>
+</body>
+</html>
